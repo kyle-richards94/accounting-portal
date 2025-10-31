@@ -7,7 +7,7 @@ export async function exportInvoicePDF(
   companySettings?: CompanySettings
 ): Promise<void> {
   const { default: InvoicePDF } = await import('@/components/InvoicePDF')
-  const doc = createElement(InvoicePDF, { invoice, companySettings })
+  const doc = createElement(InvoicePDF, { invoice, companySettings }) as any
   const blob = await pdf(doc).toBlob()
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
@@ -24,7 +24,7 @@ export async function exportEstimatePDF(
   companySettings?: CompanySettings
 ): Promise<void> {
   const { default: EstimatePDF } = await import('@/components/EstimatePDF')
-  const doc = createElement(EstimatePDF, { estimate, companySettings })
+  const doc = createElement(EstimatePDF, { estimate, companySettings }) as any
   const blob = await pdf(doc).toBlob()
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
