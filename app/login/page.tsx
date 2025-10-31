@@ -220,18 +220,6 @@ export default function LoginPage() {
             </Button>
           </Box>
         </Paper>
-
-        <Typography
-          variant="body2"
-          align="center"
-          sx={{
-            mt: 3,
-            color: 'rgba(255, 255, 255, 0.9)',
-            textShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-          }}
-        >
-          Powered by Modern Accounting Solutions
-        </Typography>
       </Container>
     </Box>
   )
