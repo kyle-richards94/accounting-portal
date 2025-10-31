@@ -1,6 +1,7 @@
 'use client'
 
-import { AppBar, Toolbar, Typography, Button, Box, Container, IconButton, Tooltip } from '@mui/material'
+import { useState, MouseEvent } from 'react'
+import { AppBar, Toolbar, Typography, Button, Box, Container, IconButton, Tooltip, Menu, MenuItem } from '@mui/material'
 import {
   Dashboard as DashboardIcon,
   ReceiptLong as ReceiptLongIcon,
@@ -9,6 +10,8 @@ import {
   Logout as LogoutIcon,
   AccountBalance as AccountBalanceIcon,
   People as PeopleIcon,
+  Assessment as AssessmentIcon,
+  KeyboardArrowDown as ArrowDownIcon,
 } from '@mui/icons-material'
 import { useRouter, usePathname } from 'next/navigation'
 import { clearSession } from '@/lib/auth'
@@ -16,24 +19,51 @@ import { clearSession } from '@/lib/auth'
 export default function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
+  const [accountingMenuAnchor, setAccountingMenuAnchor] = useState<null | HTMLElement>(null)
+  const [settingsMenuAnchor, setSettingsMenuAnchor] = useState<null | HTMLElement>(null)
 
   const handleLogout = () => {
     clearSession()
     router.push('/login')
   }
 
-  const navItems = [
-    { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-    { label: 'Invoices', icon: <ReceiptLongIcon />, path: '/invoices' },
-    { label: 'Estimates', icon: <DescriptionIcon />, path: '/estimates' },
-    { label: 'Clients', icon: <PeopleIcon />, path: '/clients' },
-    { label: 'BAS', icon: <SettingsIcon />, path: '/bas' },
-    { label: 'Settings', icon: <SettingsIcon />, path: '/settings' },
-  ]
+  const handleAccountingMenuOpen = (event: MouseEvent<HTMLElement>) => {
+    setAccountingMenuAnchor(event.currentTarget)
+  }
+
+  const handleAccountingMenuClose = () => {
+    setAccountingMenuAnchor(null)
+  }
+
+  const handleSettingsMenuOpen = (event: MouseEvent<HTMLElement>) => {
+    setSettingsMenuAnchor(event.currentTarget)
+  }
+
+  const handleSettingsMenuClose = () => {
+    setSettingsMenuAnchor(null)
+  }
+
+  const navigateTo = (path: string) => {
+    router.push(path)
+    handleAccountingMenuClose()
+    handleSettingsMenuClose()
+  }
 
   const isActive = (path: string) => {
     if (path === '/dashboard') return pathname === path
     return pathname?.startsWith(path)
+  }
+
+  const isAccountingActive = () => {
+    return pathname?.startsWith('/invoices') || pathname?.startsWith('/estimates') || pathname?.startsWith('/bas')
+  }
+
+  const isSettingsActive = () => {
+    return pathname?.startsWith('/settings') || pathname?.startsWith('/clients')
+  }
+
+  const isAccountingSettingsActive = () => {
+    return pathname?.startsWith('/settings/accounting')
   }
 
   return (
@@ -71,34 +101,125 @@ export default function Navbar() {
           </Box>
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.path}
-                color="inherit"
-                onClick={() => router.push(item.path)}
-                startIcon={item.icon}
-                sx={{
-                  px: 2.5,
-                  py: 1,
-                  borderRadius: 2,
-                  fontWeight: 500,
-                  color: isActive(item.path) ? 'white' : 'rgba(255, 255, 255, 0.85)',
-                  backgroundColor: isActive(item.path)
-                    ? 'rgba(255, 255, 255, 0.15)'
-                    : 'transparent',
-                  backdropFilter: isActive(item.path) ? 'blur(10px)' : 'none',
-                  border: isActive(item.path) ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    transform: 'translateY(-2px)',
-                  },
-                }}
-              >
-                {item.label}
-              </Button>
-            ))}
+            {/* Dashboard */}
+            <Button
+              color="inherit"
+              onClick={() => router.push('/dashboard')}
+              startIcon={<DashboardIcon />}
+              sx={{
+                px: 2.5,
+                py: 1,
+                borderRadius: 2,
+                fontWeight: 500,
+                color: isActive('/dashboard') ? 'white' : 'rgba(255, 255, 255, 0.85)',
+                backgroundColor: isActive('/dashboard')
+                  ? 'rgba(255, 255, 255, 0.15)'
+                  : 'transparent',
+                backdropFilter: isActive('/dashboard') ? 'blur(10px)' : 'none',
+                border: isActive('/dashboard') ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              Dashboard
+            </Button>
+
+            {/* Accounting Dropdown */}
+            <Button
+              color="inherit"
+              onClick={handleAccountingMenuOpen}
+              endIcon={<ArrowDownIcon />}
+              sx={{
+                px: 2.5,
+                py: 1,
+                borderRadius: 2,
+                fontWeight: 500,
+                color: isAccountingActive() ? 'white' : 'rgba(255, 255, 255, 0.85)',
+                backgroundColor: isAccountingActive()
+                  ? 'rgba(255, 255, 255, 0.15)'
+                  : 'transparent',
+                backdropFilter: isAccountingActive() ? 'blur(10px)' : 'none',
+                border: isAccountingActive() ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              Accounting
+            </Button>
+            <Menu
+              anchorEl={accountingMenuAnchor}
+              open={Boolean(accountingMenuAnchor)}
+              onClose={handleAccountingMenuClose}
+              sx={{ mt: 1 }}
+            >
+              <MenuItem onClick={() => navigateTo('/invoices')}>
+                <ReceiptLongIcon sx={{ mr: 1, fontSize: 20 }} />
+                Invoices
+              </MenuItem>
+              <MenuItem onClick={() => navigateTo('/estimates')}>
+                <DescriptionIcon sx={{ mr: 1, fontSize: 20 }} />
+                Estimates
+              </MenuItem>
+              <MenuItem onClick={() => navigateTo('/bas')}>
+                <AssessmentIcon sx={{ mr: 1, fontSize: 20 }} />
+                BAS Report
+              </MenuItem>
+            </Menu>
+
+            {/* Settings Dropdown */}
+            <Button
+              color="inherit"
+              onClick={handleSettingsMenuOpen}
+              startIcon={<SettingsIcon />}
+              endIcon={<ArrowDownIcon />}
+              sx={{
+                px: 2.5,
+                py: 1,
+                borderRadius: 2,
+                fontWeight: 500,
+                color: isSettingsActive() ? 'white' : 'rgba(255, 255, 255, 0.85)',
+                backgroundColor: isSettingsActive()
+                  ? 'rgba(255, 255, 255, 0.15)'
+                  : 'transparent',
+                backdropFilter: isSettingsActive() ? 'blur(10px)' : 'none',
+                border: isSettingsActive() ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              Settings
+            </Button>
+            <Menu
+              anchorEl={settingsMenuAnchor}
+              open={Boolean(settingsMenuAnchor)}
+              onClose={handleSettingsMenuClose}
+              sx={{ mt: 1 }}
+            >
+              <MenuItem onClick={() => navigateTo('/settings')}>
+                <SettingsIcon sx={{ mr: 1, fontSize: 20 }} />
+                Company
+              </MenuItem>
+              <MenuItem onClick={() => navigateTo('/settings/accounting')}>
+                <AssessmentIcon sx={{ mr: 1, fontSize: 20 }} />
+                Accounting
+              </MenuItem>
+              <MenuItem onClick={() => navigateTo('/clients')}>
+                <PeopleIcon sx={{ mr: 1, fontSize: 20 }} />
+                Clients
+              </MenuItem>
+            </Menu>
 
             <Box sx={{ ml: 1, borderLeft: '1px solid rgba(255, 255, 255, 0.2)', pl: 2 }}>
               <Tooltip title="Logout" arrow>

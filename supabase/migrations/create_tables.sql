@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS company_settings (
   bank_account TEXT,
   bank_account_name TEXT,
   notes TEXT,
+  invoice_notes TEXT,
+  estimate_notes TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -87,6 +89,8 @@ DO $$ BEGIN
     ALTER TABLE company_settings ADD COLUMN IF NOT EXISTS bank_account TEXT;
     ALTER TABLE company_settings ADD COLUMN IF NOT EXISTS bank_account_name TEXT;
     ALTER TABLE company_settings ADD COLUMN IF NOT EXISTS notes TEXT;
+    ALTER TABLE company_settings ADD COLUMN IF NOT EXISTS invoice_notes TEXT;
+    ALTER TABLE company_settings ADD COLUMN IF NOT EXISTS estimate_notes TEXT;
     ALTER TABLE invoices ADD COLUMN IF NOT EXISTS payment_terms TEXT DEFAULT 'custom';
   EXCEPTION WHEN others THEN NULL;
   END;

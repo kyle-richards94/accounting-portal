@@ -200,11 +200,8 @@ export default function DashboardPage() {
       <Container maxWidth="xl">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Box>
-            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
+            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, color: 'text.primary' }}>
               Dashboard
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Welcome back! Here's your accounting overview.
             </Typography>
           </Box>
           <Button

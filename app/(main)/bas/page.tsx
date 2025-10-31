@@ -279,30 +279,27 @@ export default function BASPage() {
             <Divider sx={{ mb: 2 }} />
             
             <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom sx={{ mb: 2 }}>
                 GST Calculations
               </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
-                    <Typography>G1 - Total sales</Typography>
-                    <Typography fontWeight="bold">{formatCurrency(basData.totalSales)}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1, bgcolor: 'action.hover' }}>
-                    <Typography>1A - GST on sales</Typography>
-                    <Typography fontWeight="bold">{formatCurrency(basData.gstOnSales)}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
-                    <Typography>1B - GST on purchases</Typography>
-                    <Typography fontWeight="bold">$0.00</Typography>
-                  </Box>
-                  <Divider sx={{ my: 1 }} />
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1, bgcolor: 'success.light' }}>
-                    <Typography fontWeight="bold" color="success.dark">7 - GST payable (1A - 1B)</Typography>
-                    <Typography fontWeight="bold" color="success.dark">{formatCurrency(basData.gstPayable)}</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
+              <Box sx={{ maxWidth: 600 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, px: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
+                  <Typography>G1 - Total sales</Typography>
+                  <Typography fontWeight="bold" sx={{ minWidth: 120, textAlign: 'right' }}>{formatCurrency(basData.totalSales)}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, px: 2, bgcolor: 'action.hover', borderBottom: '1px solid', borderColor: 'divider' }}>
+                  <Typography>1A - GST on sales</Typography>
+                  <Typography fontWeight="bold" sx={{ minWidth: 120, textAlign: 'right' }}>{formatCurrency(basData.gstOnSales)}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, px: 2, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography>1B - GST on purchases</Typography>
+                  <Typography fontWeight="bold" sx={{ minWidth: 120, textAlign: 'right' }}>$0.00</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 2, px: 2, bgcolor: 'success.light', borderRadius: 1, mt: 1 }}>
+                  <Typography fontWeight="bold" color="success.dark">7 - GST payable (1A - 1B)</Typography>
+                  <Typography fontWeight="bold" color="success.dark" sx={{ minWidth: 120, textAlign: 'right', fontSize: '1.1rem' }}>{formatCurrency(basData.gstPayable)}</Typography>
+                </Box>
+              </Box>
             </Box>
 
             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>

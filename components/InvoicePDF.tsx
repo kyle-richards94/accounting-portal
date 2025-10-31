@@ -347,10 +347,10 @@ export default function InvoicePDF({ invoice, companySettings }: InvoicePDFProps
             </View>
           </View>
 
-          {companySettings?.notes && (
+          {companySettings?.invoice_notes && (
             <View>
               <Text style={styles.notesTitle}>Notes</Text>
-              <Text style={styles.notesText}>{companySettings.notes}</Text>
+              <Text style={styles.notesText}>{companySettings.invoice_notes}</Text>
             </View>
           )}
         </View>

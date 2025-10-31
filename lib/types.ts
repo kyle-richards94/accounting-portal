@@ -9,6 +9,8 @@ export interface CompanySettings {
   bank_account?: string;
   bank_account_name?: string;
   notes?: string;
+  invoice_notes?: string;
+  estimate_notes?: string;
   created_at?: string;
   updated_at?: string;
 }

@@ -87,7 +87,7 @@ export default function SettingsPage() {
   return (
     <Container maxWidth="md">
       <Typography variant="h4" component="h1" gutterBottom>
-        Settings
+        Company Settings
       </Typography>
 
       <Paper sx={{ p: 3, mt: 3 }}>
@@ -176,20 +176,10 @@ export default function SettingsPage() {
             margin="normal"
           />
 
-          <TextField
-            fullWidth
-            label="Notes"
-            value={settings.notes}
-            onChange={(e) => setSettings({ ...settings, notes: e.target.value })}
-            margin="normal"
-            multiline
-            minRows={3}
-            placeholder="Shown at the very bottom of invoices"
-          />
-
           <Button
             type="submit"
             variant="contained"
+            fullWidth
             sx={{ mt: 3 }}
             disabled={saving}
           >

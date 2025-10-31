@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 40,
-    paddingTop: 24,
-    paddingBottom: 50,
+    paddingTop: 4,
+    paddingBottom: 20,
   },
   headerWrap: {
     position: 'relative',
-    height: 140,
+    height: 120,
     color: '#fff',
   },
   headerInner: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     paddingHorizontal: 40,
-    paddingTop: 30,
+    paddingTop: 24,
     justifyContent: 'space-between',
   },
   headerRow: {
@@ -47,14 +47,16 @@ const styles = StyleSheet.create({
   sectionRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 28,
-    marginBottom: 12,
+    marginTop: 8,
+    marginBottom: 4,
+    alignItems: 'stretch',
   },
   block: {
     width: '48%',
+    flexDirection: 'column',
   },
   blockTitle: {
-    color: '#0288D1',
+    color: '#1565C0',
     fontWeight: 'bold',
     fontSize: 11,
     marginBottom: 8,
@@ -62,10 +64,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
   },
   blockContent: {
-    padding: 12,
+    padding: 8,
     backgroundColor: '#F5F7FA',
     borderRadius: 6,
-    borderLeft: '3pt solid #0288D1',
+    borderLeft: '3pt solid #1565C0',
+    flexGrow: 1,
+    minHeight: 80,
   },
   muted: {
     color: '#546E7A',
@@ -74,9 +78,9 @@ const styles = StyleSheet.create({
   },
   infoRow: {
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    marginTop: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     backgroundColor: '#F5F7FA',
     borderRadius: 4,
   },
@@ -97,31 +101,32 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   table: {
-    marginTop: 20,
+    marginTop: 6,
     border: '1pt solid #E0E0E0',
     borderRadius: 8,
     overflow: 'hidden',
   },
   tableHeader: {
     flexDirection: 'row',
-    backgroundColor: '#0288D1',
+    background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
+    backgroundColor: '#1565C0',
     color: '#FFFFFF',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
     fontWeight: 'bold',
     fontSize: 10,
   },
   tableRow: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
     borderBottom: '1pt solid #E0E0E0',
     backgroundColor: '#FFFFFF',
   },
   tableRowAlt: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
     borderBottom: '1pt solid #E0E0E0',
     backgroundColor: '#FAFBFC',
   },
@@ -129,16 +134,23 @@ const styles = StyleSheet.create({
   col2: { width: '12%', textAlign: 'right', fontSize: 9 },
   col3: { width: '20%', textAlign: 'right', fontSize: 9 },
   col4: { width: '24%', textAlign: 'right', fontSize: 9, fontWeight: 'bold' },
-  subtotalWrap: {
-    marginTop: 20,
-    alignItems: 'flex-end',
+  combinedFooter: {
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
+  totalsSection: {
+    width: '48%',
+    display: 'flex',
+    marginRight: 6,
   },
   subtotalBox: {
-    width: 280,
-    padding: 16,
+    padding: 12,
     backgroundColor: '#F5F7FA',
     borderRadius: 8,
     border: '1pt solid #E0E0E0',
+    flexGrow: 1,
   },
   subtotalRow: {
     flexDirection: 'row',
@@ -157,46 +169,65 @@ const styles = StyleSheet.create({
   totalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 10,
-    marginTop: 8,
-    paddingTop: 12,
-    borderTop: '2pt solid #0288D1',
+    paddingVertical: 6,
+    marginTop: 4,
+    paddingTop: 8,
+    borderTop: '2pt solid #1565C0',
   },
   totalLabel: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#0288D1',
+    color: '#1565C0',
   },
   totalValue: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#0288D1',
+    color: '#1565C0',
   },
-  footer: {
-    marginTop: 32,
-    paddingTop: 16,
-    borderTop: '1pt solid #E0E0E0',
+  validitySection: {
+    width: '48%',
+    padding: 16,
+    backgroundColor: '#FFF9E6',
+    borderRadius: 8,
+    border: '2pt solid #FFB300',
+    display: 'flex',
+    flexGrow: 1,
+    marginLeft: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  footerTitle: {
+  validityLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#F57C00',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  validityDate: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#E65100',
+    textAlign: 'center',
+  },
+  notesTitle: {
     fontSize: 11,
     fontWeight: 'bold',
-    color: '#0288D1',
-    marginBottom: 8,
-  },
-  footerText: {
-    fontSize: 9,
-    color: '#546E7A',
+    color: '#1565C0',
+    marginTop: 12,
     marginBottom: 4,
   },
-  validityNotice: {
-    marginTop: 32,
-    textAlign: 'center',
-    fontSize: 10,
+  notesText: {
+    fontSize: 9,
     color: '#546E7A',
-    padding: 12,
-    backgroundColor: '#FFF9E6',
-    borderRadius: 6,
-    border: '1pt solid #FFD54F',
+    lineHeight: 1.4,
+  },
+  thankYou: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#1565C0',
   },
 })
 
@@ -221,8 +252,8 @@ export default function EstimatePDF({ estimate, companySettings }: EstimatePDFPr
       <Page size="A4" style={styles.page}>
         <View style={styles.headerWrap}>
           <Svg style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 150 }} viewBox="0 0 595 150">
-            <Path d="M0 0 H595 V95 C420 130 200 70 0 115 Z" fill="#0288D1" />
-            <Path d="M0 0 H595 V70 C390 110 220 60 0 100 Z" fill="#01579B" />
+            <Path d="M0 0 H595 V95 C420 130 200 70 0 115 Z" fill="#1565C0" />
+            <Path d="M0 0 H595 V70 C390 110 220 60 0 100 Z" fill="#0D47A1" />
           </Svg>
           <View style={styles.headerInner}>
             <View style={styles.headerRow}>
@@ -265,28 +296,12 @@ export default function EstimatePDF({ estimate, companySettings }: EstimatePDFPr
             </View>
           </View>
 
-          <View style={{ marginTop: 16, marginBottom: 8 }}>
+          <View style={{ marginTop: 6, marginBottom: 4 }}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Estimate Date:</Text>
               <Text style={styles.infoValue}>{formatDate(estimate.date)}</Text>
             </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Expiry Date:</Text>
-              <Text style={styles.infoValue}>{formatDate(estimate.expiry_date)}</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Status:</Text>
-              <Text style={[styles.infoValue, { textTransform: 'uppercase', fontWeight: 'bold', color: '#0288D1' }]}>
-                {estimate.status}
-              </Text>
-            </View>
           </View>
-
-          <View style={styles.divider} />
-
-          <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#263238', marginTop: 8, marginBottom: 12 }}>
-            Estimate Details
-          </Text>
 
           <View style={styles.table}>
             <View style={styles.tableHeader}>
@@ -305,40 +320,34 @@ export default function EstimatePDF({ estimate, companySettings }: EstimatePDFPr
             ))}
           </View>
 
-          <View style={styles.subtotalWrap}>
-            <View style={styles.subtotalBox}>
-              <View style={styles.subtotalRow}>
-                <Text style={styles.subtotalLabel}>Subtotal:</Text>
-                <Text style={styles.subtotalValue}>{currency(estimate.subtotal)}</Text>
+          <View style={styles.combinedFooter}>
+            <View style={styles.totalsSection}>
+              <View style={styles.subtotalBox}>
+                <View style={styles.subtotalRow}>
+                  <Text style={styles.subtotalLabel}>Subtotal:</Text>
+                  <Text style={styles.subtotalValue}>{currency(estimate.subtotal)}</Text>
+                </View>
+                <View style={styles.subtotalRow}>
+                  <Text style={styles.subtotalLabel}>GST (10%):</Text>
+                  <Text style={styles.subtotalValue}>{currency(estimate.gst)}</Text>
+                </View>
+                <View style={styles.totalRow}>
+                  <Text style={styles.totalLabel}>TOTAL:</Text>
+                  <Text style={styles.totalValue}>{currency(estimate.total)}</Text>
+                </View>
               </View>
-              <View style={styles.subtotalRow}>
-                <Text style={styles.subtotalLabel}>GST (10%):</Text>
-                <Text style={styles.subtotalValue}>{currency(estimate.gst)}</Text>
-              </View>
-              <View style={styles.totalRow}>
-                <Text style={styles.totalLabel}>TOTAL:</Text>
-                <Text style={styles.totalValue}>{currency(estimate.total)}</Text>
-              </View>
+            </View>
+
+            <View style={styles.validitySection}>
+              <Text style={styles.validityLabel}>Valid Until</Text>
+              <Text style={styles.validityDate}>{formatDate(estimate.expiry_date)}</Text>
             </View>
           </View>
 
-          <View style={styles.validityNotice}>
-            <Text style={{ fontWeight: 'bold', marginBottom: 4, color: '#F57C00' }}>Validity Notice</Text>
-            <Text>This estimate is valid until {formatDate(estimate.expiry_date)}</Text>
-          </View>
-
-          {companySettings && (
-            <View style={styles.footer}>
-              <Text style={styles.footerTitle}>Contact Information</Text>
-              {companySettings.phone && (
-                <Text style={styles.footerText}>Phone: {companySettings.phone}</Text>
-              )}
-              {companySettings.email && (
-                <Text style={styles.footerText}>Email: {companySettings.email}</Text>
-              )}
-              <Text style={[styles.footerText, { marginTop: 8, fontStyle: 'italic' }]}>
-                We look forward to working with you!
-              </Text>
+          {companySettings?.estimate_notes && (
+            <View>
+              <Text style={styles.notesTitle}>Notes</Text>
+              <Text style={styles.notesText}>{companySettings.estimate_notes}</Text>
             </View>
           )}
         </View>

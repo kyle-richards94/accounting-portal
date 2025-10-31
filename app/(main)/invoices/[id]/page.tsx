@@ -19,6 +19,7 @@ import {
   TableCell,
 } from '@mui/material'
 import { exportInvoicePDF } from '@/lib/pdf'
+import ConfirmDialog from '@/components/ConfirmDialog'
 
 export default function InvoiceDetailPage() {
   const params = useParams()
@@ -27,6 +28,7 @@ export default function InvoiceDetailPage() {
   const [invoice, setInvoice] = useState<Invoice | null>(null)
   const [companySettings, setCompanySettings] = useState<CompanySettings | null>(null)
   const [loading, setLoading] = useState(true)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -46,8 +48,11 @@ export default function InvoiceDetailPage() {
     }
   }
 
-  const handleDelete = async () => {
-    if (!confirm('Delete this invoice?')) return
+  const handleDeleteClick = () => {
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDeleteConfirm = async () => {
     try {
       const { error } = await supabase.from('invoices').delete().eq('id', id)
       if (error) throw error
@@ -55,6 +60,24 @@ export default function InvoiceDetailPage() {
     } catch (e) {
       console.error('Delete failed', e)
       alert('Failed to delete invoice')
+      setDeleteDialogOpen(false)
+    }
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false)
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'paid':
+        return 'success'
+      case 'overdue':
+        return 'error'
+      case 'sent':
+        return 'warning'
+      default:
+        return 'default'
     }
   }
 
@@ -78,7 +101,11 @@ export default function InvoiceDetailPage() {
     <Container maxWidth="md">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h4">Invoice {invoice.invoice_number}</Typography>
-        <Chip label={invoice.status.toUpperCase()} />
+        <Chip 
+          label={invoice.status.toUpperCase()} 
+          color={getStatusColor(invoice.status)}
+          size="medium"
+        />
       </Box>
 
       <Paper sx={{ p: 3 }}>
@@ -128,10 +155,21 @@ export default function InvoiceDetailPage() {
         <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
           <Button variant="contained" onClick={() => router.push(`/invoices/${id}/edit`)}>Edit</Button>
           <Button variant="outlined" onClick={() => exportInvoicePDF(invoice, companySettings || undefined)}>Export PDF</Button>
-          <Button color="error" variant="outlined" onClick={handleDelete}>Delete</Button>
+          <Button color="error" variant="outlined" onClick={handleDeleteClick}>Delete</Button>
           <Button onClick={() => router.push('/invoices')}>Back</Button>
         </Box>
       </Paper>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        title="Delete Invoice"
+        message={`Are you sure you want to delete invoice ${invoice.invoice_number}? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmColor="error"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </Container>
   )
 }

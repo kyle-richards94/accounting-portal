@@ -19,6 +19,7 @@ import {
   TableCell,
 } from '@mui/material'
 import { exportEstimatePDF } from '@/lib/pdf'
+import ConfirmDialog from '@/components/ConfirmDialog'
 
 export default function EstimateDetailPage() {
   const params = useParams()
@@ -27,6 +28,7 @@ export default function EstimateDetailPage() {
   const [estimate, setEstimate] = useState<Estimate | null>(null)
   const [companySettings, setCompanySettings] = useState<CompanySettings | null>(null)
   const [loading, setLoading] = useState(true)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -46,8 +48,11 @@ export default function EstimateDetailPage() {
     }
   }
 
-  const handleDelete = async () => {
-    if (!confirm('Delete this estimate?')) return
+  const handleDeleteClick = () => {
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDeleteConfirm = async () => {
     try {
       const { error } = await supabase.from('estimates').delete().eq('id', id)
       if (error) throw error
@@ -55,6 +60,25 @@ export default function EstimateDetailPage() {
     } catch (e) {
       console.error('Delete failed', e)
       alert('Failed to delete estimate')
+      setDeleteDialogOpen(false)
+    }
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false)
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'accepted':
+        return 'success'
+      case 'rejected':
+      case 'expired':
+        return 'error'
+      case 'sent':
+        return 'warning'
+      default:
+        return 'default'
     }
   }
 
@@ -78,7 +102,11 @@ export default function EstimateDetailPage() {
     <Container maxWidth="md">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h4">Estimate {estimate.estimate_number}</Typography>
-        <Chip label={estimate.status.toUpperCase()} />
+        <Chip 
+          label={estimate.status.toUpperCase()} 
+          color={getStatusColor(estimate.status)}
+          size="medium"
+        />
       </Box>
 
       <Paper sx={{ p: 3 }}>
@@ -128,10 +156,21 @@ export default function EstimateDetailPage() {
         <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
           <Button variant="contained" onClick={() => router.push(`/estimates/${id}/edit`)}>Edit</Button>
           <Button variant="outlined" onClick={() => exportEstimatePDF(estimate, companySettings || undefined)}>Export PDF</Button>
-          <Button color="error" variant="outlined" onClick={handleDelete}>Delete</Button>
+          <Button color="error" variant="outlined" onClick={handleDeleteClick}>Delete</Button>
           <Button onClick={() => router.push('/estimates')}>Back</Button>
         </Box>
       </Paper>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        title="Delete Estimate"
+        message={`Are you sure you want to delete estimate ${estimate.estimate_number}? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmColor="error"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </Container>
   )
 }
