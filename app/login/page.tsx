@@ -218,28 +218,6 @@ export default function LoginPage() {
             >
               Sign In
             </Button>
-
-            <Box
-              sx={{
-                mt: 3,
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'rgba(3, 155, 229, 0.08)',
-                border: '1px solid',
-                borderColor: 'rgba(3, 155, 229, 0.2)',
-              }}
-            >
-              <Typography variant="caption" color="text.secondary" display="block" align="center">
-                Demo Credentials
-              </Typography>
-              <Typography
-                variant="body2"
-                align="center"
-                sx={{ fontFamily: 'monospace', fontWeight: 600, color: 'primary.main', mt: 0.5 }}
-              >
-                Username: {HARDCODED_USERNAME} | Password: {HARDCODED_PASSWORD}
-              </Typography>
-            </Box>
           </Box>
         </Paper>
 
