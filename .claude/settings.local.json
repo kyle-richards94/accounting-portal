@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\Users\\kyle.richards\\Desktop\\repos\\accounting-portal\" /b /s)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
