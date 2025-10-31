@@ -27,6 +27,7 @@ export default function Navbar() {
     { label: 'Invoices', icon: <ReceiptLongIcon />, path: '/invoices' },
     { label: 'Estimates', icon: <DescriptionIcon />, path: '/estimates' },
     { label: 'Clients', icon: <PeopleIcon />, path: '/clients' },
+    { label: 'BAS', icon: <SettingsIcon />, path: '/bas' },
     { label: 'Settings', icon: <SettingsIcon />, path: '/settings' },
   ]
 
