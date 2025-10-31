@@ -224,7 +224,6 @@ export default function LoginPage() {
                 mt: 3,
                 p: 2,
                 borderRadius: 2,
-                bgcolor: 'info.lighter',
                 bgcolor: 'rgba(3, 155, 229, 0.08)',
                 border: '1px solid',
                 borderColor: 'rgba(3, 155, 229, 0.2)',
