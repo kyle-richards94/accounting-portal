@@ -351,7 +351,6 @@ export default function DashboardPage() {
                           borderRadius: 2,
                           transition: 'all 0.2s ease',
                           '&:hover': {
-                            bgcolor: 'primary.light',
                             bgcolor: 'rgba(21, 101, 192, 0.04)',
                             transform: 'translateX(4px)',
                           },
