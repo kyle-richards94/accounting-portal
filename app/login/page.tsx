@@ -93,6 +93,7 @@ export default function LoginPage() {
             <Typography
               variant="h3"
               component="h1"
+              align="center"
               sx={{
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
@@ -104,7 +105,7 @@ export default function LoginPage() {
             >
               Accounting Portal
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1rem' }}>
+            <Typography variant="body1" color="text.secondary" align="center" sx={{ fontSize: '1rem' }}>
               Secure access to your financial dashboard
             </Typography>
           </Box>
